@@ -96,7 +96,7 @@
 
         private void IconLookup()
         {
-            string directoryRoot = Regex.Match(Directory.GetCurrentDirectory(), @"(.*\S*.)" + appName + @"\\").Value;
+            string directoryRoot = Directory.GetCurrentDirectory();
             DirectoryInfo directoryInfo = new DirectoryInfo(directoryRoot);
 
             FileStream iconFile;
