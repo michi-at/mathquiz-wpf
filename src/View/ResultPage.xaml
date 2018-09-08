@@ -1,0 +1,76 @@
+﻿<local:BasePage
+    x:Class="MathQuizWPF.View.ResultPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MathQuizWPF.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ResultPage"
+    MinWidth="125"
+    ShowsNavigationUI="False"
+    mc:Ignorable="d">
+    <Border
+        x:Name="mainBorder"
+        BorderThickness="5"
+        CornerRadius="10,10,10,10">
+        <Border.BorderBrush>
+            <SolidColorBrush Opacity="0.75" Color="Purple" />
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush MappingMode="RelativeToBoundingBox" Opacity="0.75" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="0.633" Color="Black" />
+                <GradientStop Offset="1" Color="#FF150019" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Foreground="White"
+                MouseDown="OnXClick">
+                X
+            </Label>
+            <ResizeGrip Grid.Row="3" Grid.Column="1" />
+            <Path
+                x:Name="xFigure"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Width="40.792"
+                Height="39.001"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="M0.83333333,19.75 L7.417,11.5 14.832957,19.333333 21.416447,11.333333 26.415898,16.000148 17.582727,25.249782 24.415676,32.916146 18.166027,35.748989 14.082923,29.665991 C14.082923,29.665991 9.4165182,34.3324 9.6665042,34.499058 9.9164901,34.665715 4.2501415,32.582497 4.2501415,32.582497 L9.4165182,27.249457 z"
+                Fill="Red"
+                Stretch="Fill"
+                Stroke="White"
+                Visibility="Hidden" />
+            <Path
+                x:Name="vFigure"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Width="46.334"
+                Height="46.667"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="M33.333333,30.666667 L49.833665,53.832999 64.167619,18.832829 73.167368,21.499842 50.167013,64.500053 27.833661,33.833236 z"
+                Fill="#FF00FF2E"
+                Stretch="Fill"
+                Stroke="White" />
+        </Grid>
+    </Border>
+</local:BasePage>
