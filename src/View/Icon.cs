@@ -13,7 +13,7 @@
 
     public partial class App : Application
     {
-        private static readonly string[] menuItemNames = { "Play", "Stop", "Difficulty Level", "Exit" };
+        private static readonly string[] menuItemNames = { "Play", "Stop", "Difficulty Level", "Timeout Settings", "Exit" };
         private void InitializeIcon()
         {
             WinForms.ContextMenu contextMenu = new WinForms.ContextMenu();
@@ -64,6 +64,11 @@
                 case "Stop":
                     {
                         viewModel.IsPlaying = false;
+                        break;
+                    }
+                case "Timeout Settings":
+                    {
+                        settingsWindow.Show();
                         break;
                     }
                 case "Exit":

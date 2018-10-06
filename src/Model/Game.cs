@@ -30,9 +30,8 @@
         }
     }
 
-    public sealed class Game<T> : IDisposable where T : GameRound, new()
+    public sealed class Game : IDisposable
     {
-        public static Game<T> Instance { get; } = new Game<T>(); // 1 game per round type - bad
 
         private GameRound round;
         private DifficultyLevel mode;
@@ -42,12 +41,37 @@
         public event EventHandler<RoundEventArgs> OnRoundResult;
         private Random r;
 
-        static Game(){}
-
-        private Game()
+        private int timeoutStart;
+        public int TimeoutStart
         {
-            //state = GameState.WaitingForAnswer;
+            set
+            {
+                timeoutStart = (value < 0) ? 0 : value;
+            }
+            get
+            {
+                return timeoutStart;
+            }
+        }
+        private int timeoutEnd;
+        public int TimeoutEnd
+        {
+            set
+            {
+                timeoutEnd = (value < 0) ? 0 : (value == TimeoutStart) ? ++value : value;
+            }
+            get
+            {
+                return timeoutEnd;
+            }
+        }
+
+        public Game(GameRound round)
+        {
             r = new Random();
+            this.round = round;
+            TimeoutStart = 0;
+            TimeoutEnd = 10000;
         }
 
         public void Setup(DifficultyLevel mode)
@@ -60,7 +84,6 @@
             if (this.state == GameState.Ready)
             {
                 this.state = GameState.Running;
-                //Console.WriteLine($"{GameState.Ready} => {GameState.Running}");
                 cancellationTokenSource?.Dispose();
                 cancellationTokenSource = new CancellationTokenSource();
                 Task.Factory.StartNew(GameProcess, cancellationTokenSource.Token, TaskCreationOptions.LongRunning);
@@ -70,11 +93,10 @@
         private void GameProcess(object ct)
         {
             var cancellationToken = (CancellationToken)ct;
-            cancellationToken.Register(() => { state = GameState.Ready; /*Console.WriteLine($"{GameState.Running} => {GameState.Ready}");*/ });
+            cancellationToken.Register(() => { state = GameState.Ready; });
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                round = new T();
                 round.Setup(this.mode);
                 string answer = FireOnQuestionEvent(round.GetQuestion());
                 bool? isCorrect = round.CheckAnswer(answer);
@@ -84,7 +106,7 @@
                     isCorrect = round.CheckAnswer(answer);
                 }
                 FireOnRoundResult(isCorrect.Value, round.GetAnswer());
-                Thread.Sleep(r.Next(30000, 60000)); // TODO: timeout options
+                Thread.Sleep(r.Next(TimeoutStart, TimeoutEnd));
             }
         }
 

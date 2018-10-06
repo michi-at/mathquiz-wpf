@@ -2,11 +2,11 @@
 {
     using System;
     using System.Windows;
-    using System.Collections.Generic;
+    using MathQuizWPF.View;
     using System.Windows.Input;
     using System.Windows.Navigation;
 
-    public partial class MainWindow : NavigationWindow
+    public partial class MainWindow : NavigationWindow, IView
     {
         Random r = new Random();
         bool isShown = false;

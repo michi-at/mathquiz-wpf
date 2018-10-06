@@ -6,7 +6,6 @@
 
     public static class IconExtractor
     {
-
         public static Icon Extract(string file, int number, bool largeIcon)
         {
             IntPtr large;
@@ -24,6 +23,5 @@
         }
         [DllImport("Shell32.dll", EntryPoint = "ExtractIconExW", CharSet = CharSet.Unicode, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
         private static extern int ExtractIconEx(string sFile, int iIndex, out IntPtr piLargeVersion, out IntPtr piSmallVersion, int amountIcons);
-
     }
 }

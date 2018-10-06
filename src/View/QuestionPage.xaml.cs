@@ -46,7 +46,7 @@
         {
             if (e.Key == Key.Enter)
             {
-                MainViewModel<ArithmeticRound> context = (MainViewModel<ArithmeticRound>)DataContext;
+                MainViewModel context = (MainViewModel)DataContext;
                 context.Answer = this.answerTextBox.Text;
                 this.answerTextBox.Text = "";
             }

@@ -62,16 +62,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ArithmeticRound.cs" />
+    <Compile Include="View\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\IconExtractor.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\Icon.cs" />
+    <Compile Include="View\IView.cs" />
     <Compile Include="View\QuestionPage.xaml.cs">
       <DependentUpon>QuestionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ResultPage.xaml.cs">
-      <DependentUpon>ResultPage.xaml</DependentUpon>
+    <Compile Include="View\TimeoutSettingsPage.xaml.cs">
+      <DependentUpon>TimeoutSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,7 +99,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ResultPage.xaml">
+    <Page Include="View\TimeoutSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

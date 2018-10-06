@@ -50,6 +50,7 @@
         {
             correctAnswers = new List<double>();
             afterAttempt = null;
+            Question = "";
 
             double evaluationResult = 0;
             int numOfArguments = 2;
@@ -93,12 +94,9 @@
             }
             else
             {
-                List<double> args = new List<double>();
-
                 for (int i = 1; i <= numOfArguments; ++i)
                 {
                     double arg = RandomArgument(mode);
-                    args.Add(arg);
                     string selectedOperator = binaryFunctions.Keys.ElementAt(r.Next(binaryFunctions.Count));
                     if (i < numOfArguments)
                         Question += $"{arg} {selectedOperator} ";

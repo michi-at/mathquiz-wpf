@@ -11,8 +11,10 @@
     {
         private WinForms.NotifyIcon icon;
         private MainWindow mainWindow;
+        private SettingsWindow settingsWindow;
         private MathQuizWPF.View.QuestionPage questionPage;
-        private MainViewModel<ArithmeticRound> viewModel;
+        private MathQuizWPF.View.TimeoutSettingsPage timeoutSettingsPage;
+        private MainViewModel viewModel;
         const string appName = "MathQuiz";
 
 
@@ -20,8 +22,13 @@
         {
             base.OnStartup(e);
             mainWindow = new MainWindow();
-            viewModel = new MainViewModel<ArithmeticRound>();
-            questionPage = new View.QuestionPage
+            settingsWindow = new SettingsWindow();
+            viewModel = new MainViewModel();
+            questionPage = new View.QuestionPage()
+            {
+                DataContext = viewModel
+            };
+            timeoutSettingsPage = new View.TimeoutSettingsPage()
             {
                 DataContext = viewModel
             };
@@ -30,46 +37,25 @@
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-GB");
 
-            Game<ArithmeticRound>.Instance.OnQuestionAppeared += (sender, args) =>
-                                                                 {
-                                                                     viewModel.Question = args.Request;
-                                                                     Dispatcher.Invoke(() => mainWindow.Show());
-                                                                     while(viewModel.Answer == null || viewModel.Answer == ""){}
-                                                                     args.Response = viewModel.Answer;
-                                                                 };
-            Game<ArithmeticRound>.Instance.OnRoundResult += (sender, args) => 
-                                                            {
-                                                                Dispatcher.Invoke(() =>
-                                                                {
-                                                                    questionPage.questionLabel.Visibility = Visibility.Hidden;
-                                                                    questionPage.answerTextBox.Visibility = Visibility.Hidden;
-                                                                });
-                                                                if (args.Result)
-                                                                    Dispatcher.Invoke(() => questionPage.vFigure.Visibility = Visibility.Visible);
-                                                                else
-                                                                {
-                                                                    viewModel.CorrectAnswer = args.Response;
-                                                                    Dispatcher.Invoke(() =>
-                                                                    {
-                                                                        questionPage.xFigure.Visibility = Visibility.Visible;
-                                                                        questionPage.correctAnswerLabel.Visibility = Visibility.Visible;
-                                                                    });
-                                                                }
-                                                                Thread.Sleep(2500);
-                                                                viewModel.CorrectAnswer = "";
-                                                                viewModel.Answer = "";
-                                                                Dispatcher.Invoke(() =>
-                                                                {
-                                                                    mainWindow.Hide();
-                                                                    questionPage.vFigure.Visibility = Visibility.Hidden;
-                                                                    questionPage.xFigure.Visibility = Visibility.Hidden;
-                                                                    questionPage.correctAnswerLabel.Visibility = Visibility.Hidden;
-                                                                    questionPage.questionLabel.Visibility = Visibility.Visible;
-                                                                    questionPage.answerTextBox.Visibility = Visibility.Visible;
-                                                                });
-                                                            };
+            viewModel.OnQuestionAppeared += ViewModel_OnQuestionAppeared;
+            viewModel.OnRoundResult += ViewModel_OnRoundResult;
+
             InitializeIcon();
             mainWindow.Navigate(questionPage);
+            settingsWindow.Navigate(timeoutSettingsPage);
+        }
+
+        private void ViewModel_OnRoundResult(object sender, EventArgs e)
+        {
+            Dispatcher.Invoke(() => mainWindow.Hide());
+        }
+
+        private void ViewModel_OnQuestionAppeared(object sender, EventArgs e)
+        {
+            Dispatcher.Invoke(() => 
+            {
+                mainWindow.Show();
+            });
         }
 
         protected override void OnExit(ExitEventArgs e)

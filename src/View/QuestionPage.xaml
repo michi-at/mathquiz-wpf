@@ -7,8 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="QuestionPage"
     ShowsNavigationUI="False"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    FocusManager.FocusedElement="{Binding ElementName=answerTextBox}"
+    >
     <Border
+        
         x:Name="mainBorder"
         BorderThickness="5"
         CornerRadius="10,10,10,10">
@@ -54,7 +57,7 @@
                 Content="{Binding Question, UpdateSourceTrigger=PropertyChanged}"
                 FontSize="24"
                 Foreground="White"
-                Visibility="Visible" />
+                Visibility="{Binding QuestionVisibility, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox
                 x:Name="answerTextBox"
                 Grid.Row="2"
@@ -68,7 +71,7 @@
                 DataObject.Pasting="PastingAnswer"
                 KeyDown="EnteringAnswer"
                 PreviewTextInput="PreviewAnswerInput"
-                Visibility="Visible" />
+                Visibility="{Binding AnswerVisibility, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 x:Name="correctAnswerLabel"
                 Grid.Row="2"
@@ -82,7 +85,7 @@
                 Content="{Binding CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"
                 FontSize="24"
                 Foreground="White"
-                Visibility="Hidden" />
+                Visibility="{Binding CorrectAnswerVisibility, UpdateSourceTrigger=PropertyChanged}" />
             <Path
                 x:Name="xFigure"
                 Grid.Row="1"
@@ -96,7 +99,7 @@
                 Fill="Red"
                 Stretch="Fill"
                 Stroke="White"
-                Visibility="Hidden" />
+                Visibility="{Binding XFigureVisibility, UpdateSourceTrigger=PropertyChanged}" />
             <Path
                 x:Name="vFigure"
                 Grid.Row="1"
@@ -111,7 +114,7 @@
                 Fill="#FF00FF2E"
                 Stretch="Fill"
                 Stroke="White"
-                Visibility="Hidden" />
+                Visibility="{Binding VFigureVisibility, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
     </Border>
 </local:BasePage>
