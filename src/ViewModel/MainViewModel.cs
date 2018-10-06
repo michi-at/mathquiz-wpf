@@ -3,7 +3,6 @@
     using System;
     using System.Windows;
     using System.ComponentModel;
-    using MathQuizWPF.View;
     using System.Threading;
 
     public class MainViewModel : INotifyPropertyChanged

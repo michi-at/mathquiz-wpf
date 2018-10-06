@@ -4,11 +4,7 @@
     using WinForms = System.Windows.Forms;
     using Drawing = System.Drawing;
     using System;
-    using System.Linq;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Text.RegularExpressions;
-    using System.Windows.Media;
     using System.Windows.Media.Imaging;
 
     public partial class App : Application

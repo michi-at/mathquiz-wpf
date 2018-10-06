@@ -2,9 +2,7 @@
 {
     using System;
     using System.Windows;
-    using System.Globalization;
     using WinForms = System.Windows.Forms;
-    using System.Threading;
     using MathQuizWPF.ViewModel;
 
     public partial class App : Application
@@ -12,11 +10,10 @@
         private WinForms.NotifyIcon icon;
         private MainWindow mainWindow;
         private SettingsWindow settingsWindow;
-        private MathQuizWPF.View.QuestionPage questionPage;
-        private MathQuizWPF.View.TimeoutSettingsPage timeoutSettingsPage;
+        private View.QuestionPage questionPage;
+        private View.TimeoutSettingsPage timeoutSettingsPage;
         private MainViewModel viewModel;
         const string appName = "MathQuiz";
-
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -32,10 +29,9 @@
             {
                 DataContext = viewModel
             };
-
-            // Setting culture to en-GB
-            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-GB");
+            
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB");
 
             viewModel.OnQuestionAppeared += ViewModel_OnQuestionAppeared;
             viewModel.OnRoundResult += ViewModel_OnRoundResult;
